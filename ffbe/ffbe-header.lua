@@ -41,8 +41,9 @@ function highlight_click(m)
 		return
 	end
 	m:highlight()
-	touchDown(m)
-	wait(1)
-	touchUp(m)	
+	--touchDown(m)
+	--wait(1)
+	--touchUp(m)
+	click(m)
 	m:highlight()
 end

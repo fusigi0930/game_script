@@ -32,7 +32,7 @@ while true do
 		highlight_click(Region(500,930, 25, 25))
 	end
 	-- click next
-	wait_in_light(8)
+	wait_in_light(5)
 	--m=wait_for_image("next.png",20)
 	highlight_click(Region(500,1650,50,50))
 	--wait_in_light(12)
@@ -44,25 +44,25 @@ while true do
 		highlight_click(Region(500,650, 25, 25))
 		m:highlight()
 	end
-	-- click ¥Xµo
+	-- click Â¥XÂµo
 	m=wait_for_image("start.png",20)
 	highlight_click(m)
-	wait_in_light(12)
+	wait_in_light(6)
 	
 	-- click auto
 	highlight_click(Region(140,1850,25, 25))
 	
-	wait_in_light(45)
+	wait_in_light(40)
 	
 	highlight_click(Region(500,200, 25, 25))
 	
 	m=wait_for_image("next.png",25)
 	highlight_click(m)
 	
-	wait_in_light(15)
+	wait_in_light(10)
 	highlight_click(Region(500,200, 25, 25))
 	
-	wait_in_light(5)
+	wait_in_light(3)
 	--m=wait_for_image("next.png",25)
 	--if (m ~= nil) then
 	highlight_click(Region(500,1650,25,25))
@@ -73,7 +73,7 @@ while true do
 
 	--m=wait_for_image("next.png",25)
 	--click(m)
-	wait_in_light(15)
+	wait_in_light(11)
 	-- power key to suspend
 	-- wait_in_dark(400)
 	--count=count+1
