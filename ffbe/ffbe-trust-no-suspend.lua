@@ -47,7 +47,7 @@ while true do
 	-- click ¥Xµo
 	m=wait_for_image("start.png",20)
 	highlight_click(m)
-	wait_in_light(6)
+	wait_in_light(9)
 	
 	-- click auto
 	highlight_click(Region(140,1850,25, 25))
