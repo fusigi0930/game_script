@@ -14,7 +14,7 @@ function wait_for_image(image,sec)
 			wait(1)
 			return m
 		end
-		click(Location(0,0))
+		click(Location(500,0))
 	end	
 	return nil
 end
@@ -23,7 +23,7 @@ function wait_in_light(sec)
 	cur_time=os.time()
 	while cur_time + sec > os.time() do
 		wait(1)
-		click(Location(0,0))
+		click(Location(500,0))
 	end
 end
 
