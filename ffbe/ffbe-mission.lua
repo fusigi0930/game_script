@@ -20,17 +20,15 @@ while true do
 	--		break
 	--	end
 	--end
-	ground_img=wait_for_image("ground.png",10)
+	--ground_img=wait_for_image("ground.png",10)
 	--if (ground_img == nil) then
 	--	m=wait_for_image("next.png",25)
 	--	highlight_click(m)
 	--end
 	-- click lesson 1 location 	500,1220
-	if (count%2 == 0) then
-		highlight_click(Region(500,1220, 25, 25))
-	else
-		highlight_click(Region(500,930, 25, 25))
-	end
+	swipe(Region(500, 1600, 25, 25), Region(500, 500, 25, 25));
+	highlight_click(Region(500,1700, 25, 25))
+
 	-- click next
 	wait_in_light(2)
 	--m=wait_for_image("next.png",20)
@@ -52,7 +50,7 @@ while true do
 	-- click auto
 	highlight_click(Region(140,1850,25, 25))
 	
-	wait_in_light(40)
+	wait_in_light(65)
 	
 	highlight_click(Region(500,200, 25, 25))
 	

@@ -52,9 +52,9 @@ while true do
 	for rp = 1,2 do
 		-- click auto
 		highlight_click(Region(350,1850,25, 25))
-		wait_in_light(15)
+		wait_in_light(19)
 	end
-	wait_in_light(10)
+	wait_in_light(2)
 	
 	highlight_click(Region(500,200, 25, 25))
 	
@@ -75,7 +75,7 @@ while true do
 
 	--m=wait_for_image("next.png",25)
 	--click(m)
-	wait_in_light(11)
+	wait_in_light(5)
 	-- power key to suspend
 	-- wait_in_dark(400)
 	--count=count+1
