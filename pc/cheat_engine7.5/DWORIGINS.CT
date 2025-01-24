@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"View Mode [Full/Normal]"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+LuaCall(function cycleFullCompact(sender,force) local state = not(compactmenuitem.Caption == 'View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'View Mode: Normal' or 'View Mode: Full'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible    = state; getMainForm().Panel5.Visible    = state; end; function addCompactMenu() if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu(); cycleFullCompact(nil,true))
+[DISABLE]
+LuaCall(cycleFullCompact(nil,false))
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"DYNASTY WARRIORS: ORIGINS"</Description>
+      <Options moDeactivateChildrenAsWell="1"/>
+      <Color>6B6B6B</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+OpenProcess("DWORIGINS.exe")
+{$asm}
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>354</ID>
+          <Description>"Allies   [Endurance]   Expeditionary Forces"</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_allies_x,$process,66 0F 6E 70 30)
+aobscanmodule(_allies_y,$process,2F 66 0F 6E 48 30)
+alloc(newmem_x,$1111,_allies_x)
+alloc(newmem_y,$1111,_allies_y)
+label(return_y)
+label(return_y)
+registersymbol(_allies_x)
+registersymbol(_allies_y)
+newmem_x:
+  mov [rax+30],(int)999999
+  jne short @f
+  @@:
+  movd xmm6,[rax+30]
+  jmp return_x
+_allies_x:
+  jmp newmem_x
+return_x:
+newmem_y:
+  mov [rax+30],(int)999999
+  jne short @f
+  @@:
+  movd xmm1,[rax+30]
+  jmp return_y
+_allies_y+01:
+  jmp newmem_y
+return_y:
+[DISABLE]
+dealloc(newmem_x)
+dealloc(newmem_y)
+unregistersymbol(_allies_x)
+unregistersymbol(_allies_y)
+_allies_x:
+  db 66 0F 6E 70 30
+_allies_y+01:
+  db 66 0F 6E 48 30
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>85</ID>
+          <Description>"Combat   [Damage]   One Hit Kill"</Description>
+          <Color>404080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_damage,$process,F3 0F 10 40 38 C3 0F)
+alloc(newmem,$1111,_damage)
+label(return)
+registersymbol(_damage)
+newmem:
+  mov [rax+38],(float)0
+  movss xmm0,[rax+38]
+  jmp return
+_damage:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_damage)
+_damage:
+  db F3 0F 10 40 38
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196796</ID>
+          <Description>"Companion"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_companion,$process,F3 0F 10 40 44 0F 2F 40 40 0F 93 C0 3A)
+alloc(_companion_base,8)
+alloc(newmem,$1111,_companion)
+label(return)
+registersymbol(_companion _companion_base)
+newmem:
+  mov [_companion_base],rax
+  movss xmm0,[rax+44]
+  jmp return
+_companion:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_companion:
+  db F3 0F 10 40 44
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337196803</ID>
+              <Description>"Bravery ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0080FF</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>70</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196802</ID>
+              <Description>"Bravery ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0080FF</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>6c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196800</ID>
+              <Description>"Health ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196799</ID>
+              <Description>"Health ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>34</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196805</ID>
+              <Description>"Modifier   [Jump]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>000080</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>2C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196806</ID>
+              <Description>"Modifier   [Movement]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>000080</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196797</ID>
+              <Description>"Musou Attacks ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF8000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>44</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196798</ID>
+              <Description>"Musou Attacks ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF8000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_companion_base</Address>
+              <Offsets>
+                <Offset>40</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>56</ID>
+          <Description>"Hero"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_hero,$process,60 12 00 00 F3 0F 59 41 34 0F 2F 41 38 0F 97 C0)
+alloc(_hero_base,8)
+alloc(newmem,$1111,_hero)
+label(return)
+registersymbol(_hero _hero_base)
+newmem:
+  mov [_hero_base],rcx
+  comiss xmm0,[rcx+38]
+  seta al
+  jmp return
+_hero+09:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_hero+09:
+  db 0F 2F 41 38 0F 97 C0
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337196715</ID>
+              <Description>"Attack"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C6C600</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>118</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>65</ID>
+              <Description>"Bravery ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0080FF</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>70</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>64</ID>
+              <Description>"Bravery ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0080FF</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>6c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196716</ID>
+              <Description>"Defense"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C6C600</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>11C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>57</ID>
+              <Description>"Health ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>63</ID>
+              <Description>"Health ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>34</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196712</ID>
+              <Description>"Modifier   [Jump]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>000080</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>2c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196710</ID>
+              <Description>"Modifier   [Movement]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>000080</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>67</ID>
+              <Description>"Musou Attacks ↩ Default"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF8000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>44</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>66</ID>
+              <Description>"Musou Attacks ↪ Maximum"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF8000</Color>
+              <VariableType>Float</VariableType>
+              <Address>_hero_base</Address>
+              <Offsets>
+                <Offset>40</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>346</ID>
+          <Description>"Horse   [Gauge]   Cheer Up/Dash"</Description>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_horse_power,$process,F3 0F 11 87 80 02 00 00 48)
+alloc(newmem,$1111,_horse_power)
+label(return)
+registersymbol(_horse_power)
+newmem:
+  movss [rdi+280],xmm0
+  mov [rdi+280],(float)1000
+  jmp return
+_horse_power:
+  jmp newmem
+  nop 3
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_horse_power)
+_horse_power:
+  db F3 0F 11 87 80 02 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196759</ID>
+          <Description>"Horse   [Gauge]   Experience/Level"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_horse_experience,$process,8B 00 BA 3F 42 0F 00 3B C2 73 0D)
+alloc(newmem,$1111,_horse_experience)
+alloc(_horse_exp,8)
+label(return)
+registersymbol(_horse_experience _horse_exp)
+newmem:
+  mov [_horse_exp],rax
+  mov eax,[rax]
+  mov edx,F423F
+  jmp return
+_horse_experience:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_horse_experience:
+  db 8B 00 BA 3F 42 0F 00
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337196760</ID>
+              <Description>"Experience/Level"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>CA95FF</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_horse_exp</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>72</ID>
+          <Description>"Inventory   [Mix]"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FF6C6C</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_inventory,$process,8B 89 84 03 00 00 3B)
+alloc(_inventory_base,8)
+alloc(newmem,$1111,_inventory)
+registersymbol(_inventory _inventory_base)
+label(return)
+newmem:
+  mov [_inventory_base],rcx
+  mov ecx,[rcx+384]
+  jmp return
+_inventory:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_inventory:
+  db 8B 89 84 03 00 00
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>225</ID>
+              <Description>"Character"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>String</VariableType>
+              <Length>9</Length>
+              <Unicode>0</Unicode>
+              <CodePage>0</CodePage>
+              <ZeroTerminate>1</ZeroTerminate>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>c61</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>73</ID>
+              <Description>"Gold"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>384</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>90</ID>
+              <Description>"Old Coins"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>45a</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196704</ID>
+              <Description>"Proficiency   [Level]   Weapon   [1]   Sword"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14B80</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196706</ID>
+              <Description>"Proficiency   [Level]   Weapon   [2]   Spear"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14B60</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196705</ID>
+              <Description>"Proficiency   [Level]   Weapon   [3]   Gauntlets"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14BB0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196732</ID>
+              <Description>"Proficiency   [Level]   Weapon   [4]   Wheels"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14BA0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196733</ID>
+              <Description>"Proficiency   [Level]   Weapon   [5]   Padao"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14BC0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196734</ID>
+              <Description>"Proficiency   [Level]   Weapon   [6]   Staff"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14B90</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196735</ID>
+              <Description>"Proficiency   [Level]   Weapon   [7]   Twin Pikes"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14B70</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196736</ID>
+              <Description>"Proficiency   [Level]   Weapon   [8]   Lance"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14BE0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196737</ID>
+              <Description>"Proficiency   [Level]   Weapon   [9]   Cresc.Blade"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>14BD0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>86</ID>
+              <Description>"Pyroxene"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>4be</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>75</ID>
+              <Description>"Skill Points"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7ACAC</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_inventory_base</Address>
+              <Offsets>
+                <Offset>458</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>356</ID>
+          <Description>"Inventory   [Use]   Portable Items   [Buns]"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>008080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_portable_items,$process,28 AA FF 0F B7 97 98 09 00 00)
+alloc(_buns,8)
+alloc(newmem,$1111,_portable_items)
+label(return)
+registersymbol(_portable_items _buns)
+newmem:
+  mov [_buns],rdi
+  movzx edx,word ptr [rdi+998]
+  jmp return
+_portable_items+03:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_portable_items+03:
+  db 0F B7 97 98 09 00 00
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337196777</ID>
+              <Description>"Buns"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>00BBBB</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_buns</Address>
+              <Offsets>
+                <Offset>998</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196792</ID>
+          <Description>"Multiplier   [Battle]   Base/Morale   [Team Blue]"</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+local pControlOn = getAddressList().getMemoryRecordByDescription("Multiplier   [Battle]   Base/Morale   [Team Red]")
+if (pControlOn.Active) then
+ pControlOn.Active = false
+end
+{$asm}
+aobscanmodule(_multiplier_base,$process,F3 0F 10 47 04 0F 29)
+alloc(newmem,$1111,_multiplier_base)
+label(return)
+registersymbol(_multiplier_base)
+newmem:
+  mov [rdi+04],(float)999999
+  movss xmm0,[rdi+04]
+  jmp return
+_multiplier_base:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_multiplier_base)
+_multiplier_base:
+  db F3 0F 10 47 04
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196785</ID>
+          <Description>"Multiplier   [Battle]   Base/Morale   [Team Red]"</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+local pControlOff = getAddressList().getMemoryRecordByDescription("Multiplier   [Battle]   Base/Morale   [Team Blue]")
+if (pControlOff.Active) then
+ pControlOff.Active = false
+end
+{$asm}
+aobscanmodule(_multiplier_base,$process,F3 0F 10 47 04 0F 29)
+alloc(newmem,$1111,_multiplier_base)
+label(return)
+registersymbol(_multiplier_base)
+newmem:
+  mov [rdi+04],(float)0
+  movss xmm0,[rdi+04]
+  jmp return
+_multiplier_base:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_multiplier_base)
+_multiplier_base:
+  db F3 0F 10 47 04
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196774</ID>
+          <Description>"Multiplier   [Battle]   K.O."</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_multiplier_ko,$process,8B F9 42 8D 04 39)
+alloc(newmem,$1111,_multiplier_ko)
+label(code)
+label(return)
+registersymbol(_multiplier_ko)
+newmem:
+  add rcx,(int)100
+code:
+  mov edi,ecx
+  lea eax,[rcx+r15]
+  jmp return
+_multiplier_ko:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_multiplier_ko)
+_multiplier_ko:
+  db 8B F9 42 8D 04 39
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>339</ID>
+          <Description>"Objectives   [Training]   Finished"</Description>
+          <Color>800080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_training,$process,45 03 4C 88 7C)
+alloc(newmem,$1111,_training)
+label(return)
+registersymbol(_training)
+newmem:
+  mov [r8+rcx*4+7C],(int)9999999
+  jmp return
+_training:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_training)
+_training:
+  db 45 03 4C 88 7C
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>330</ID>
+          <Description>"Proficiency   [Level Up]   Maximum"</Description>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_proficiency,$process,F3 4C 0F 2C 94 B9 AC 09 00 00)
+alloc(newmem,$1111,_proficiency)
+label(return)
+registersymbol(_proficiency)
+newmem:
+  cvttss2si r10,[rcx+rdi*4+9AC]
+  add [rcx+rdi*4+9AC],(float)9999999
+  jmp return
+_proficiency:
+  jmp newmem
+  nop 5
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_proficiency)
+_proficiency:
+  db F3 4C 0F 2C 94 B9 AC 09 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>365</ID>
+          <Description>"Timer   [Mission]   Task"</Description>
+          <Color>8080FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_timer_task,$process,F3 0F 11 93 C0 00 00 00 44 38)
+alloc(newmem,$1111,_timer_task)
+label(return)
+registersymbol(_timer_task)
+newmem:
+  movss [rbx+C0],xmm2
+  mov [rbx+C0],(float)600
+  jmp return
+_timer_task:
+  jmp newmem
+  nop 3
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_timer_task)
+_timer_task:
+  db F3 0F 11 93 C0 00 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>321</ID>
+          <Description>"Timer   [Mission]   Time Elapsed"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>8080FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_timer_mission,$process,F3 0F 10 40 10 44 0F 2F C0 76 2C F3 0F 58 C7)
+alloc(newmem,$1111,_timer_mission)
+label(return)
+registersymbol(_timer_mission)
+newmem:
+  mov [rax+10],(float)60
+  movss xmm0,[rax+10]
+  jmp return
+_timer_mission:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_timer_mission)
+_timer_mission:
+  db F3 0F 10 40 10
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
