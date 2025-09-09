@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"GetDatas"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : sora_1st.exe
+  Version: 
+  Date   : 2025-09-07
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+//the code will be used to disable the cheat
+aobscanmodule(get_info,sora_1st.exe,8B 92 00 39 1F 00 E8) // should be unique
+alloc(newmem,$1000,get_info)
+alloc(_money,$16,get_info)
+registerSymbol(_money)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push rax
+  mov rax,rdx
+  add rax,001F3900
+  mov [_money],rax
+  pop rax
+  mov edx,[rdx+001F3900]
+  jmp return
+
+get_info:
+  jmp newmem
+  nop
+return:
+registersymbol(get_info)
+
+[DISABLE]
+
+get_info:
+  db 8B 92 00 39 1F 00
+
+unregistersymbol(get_info)
+unregistersymbol(_money)
+dealloc(_money)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: sora_1st.exe+1AEF23
+
+sora_1st.exe+1AEEFD: 41 B8 FE FF FF 7F     - mov r8d,7FFFFFFE
+sora_1st.exe+1AEF03: E8 88 CB 29 00        - call sora_1st.exe+44BA90
+sora_1st.exe+1AEF08: 48 85 C0              - test rax,rax
+sora_1st.exe+1AEF0B: 75 0C                 - jne sora_1st.exe+1AEF19
+sora_1st.exe+1AEF0D: 48 83 C7 08           - add rdi,08
+sora_1st.exe+1AEF11: 48 3B FE              - cmp rdi,rsi
+sora_1st.exe+1AEF14: 75 DA                 - jne sora_1st.exe+1AEEF0
+sora_1st.exe+1AEF16: 49 8B C5              - mov rax,r13
+sora_1st.exe+1AEF19: 48 8B 15 A8 74 73 00  - mov rdx,[sora_1st.exe+8E63C8]
+sora_1st.exe+1AEF20: 48 8B C8              - mov rcx,rax
+// ---------- INJECTING HERE ----------
+sora_1st.exe+1AEF23: 8B 92 00 39 1F 00     - mov edx,[rdx+001F3900]
+// ---------- DONE INJECTING  ----------
+sora_1st.exe+1AEF29: E8 52 A7 2F 00        - call sora_1st.exe+4A9680
+sora_1st.exe+1AEF2E: 48 8B CB              - mov rcx,rbx
+sora_1st.exe+1AEF31: E8 6A 13 00 00        - call sora_1st.exe+1B02A0
+sora_1st.exe+1AEF36: 44 88 AB A8 01 00 00  - mov [rbx+000001A8],r13b
+sora_1st.exe+1AEF3D: 48 8B 05 8C 74 73 00  - mov rax,[sora_1st.exe+8E63D0]
+sora_1st.exe+1AEF44: F6 80 01 01 00 00 40  - test byte ptr [rax+00000101],40
+sora_1st.exe+1AEF4B: 0F 85 D2 00 00 00     - jne sora_1st.exe+1AF023
+sora_1st.exe+1AEF51: 48 8B 05 B0 40 73 00  - mov rax,[sora_1st.exe+8E3008]
+sora_1st.exe+1AEF58: 44 38 A8 24 2D 00 00  - cmp [rax+00002D24],r13b
+sora_1st.exe+1AEF5F: 0F 85 BE 00 00 00     - jne sora_1st.exe+1AF023
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"money"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"星杯掛墜"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DB570</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"英雄手甲"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DB568</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"鬥魂皮帶+"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DB578</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"大師鞋墊+"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DC040</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"生命靈藥"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DD128</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"力量靈藥"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DD124</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"守護靈藥"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DD120</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"魔力靈藥"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DD11C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"心靈靈藥"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-DD118</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"地曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-20</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"水曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-1C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"火曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-18</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"風曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-14</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"時曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"空曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"幻曜石"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>_money</Address>
+          <Offsets>
+            <Offset>-8</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"set_all_params_max"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : sora_1st.exe
+  Version: 
+  Date   : 2025-09-07
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(set_params_max,sora_1st.exe,89 86 A0 00 00 00 48 8B 74) // should be unique
+alloc(newmem,$1000,set_params_max)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rsi+0000009C],99999
+  mov [rsi+000000A0],9999
+  mov [rsi+000000A4],9999
+  mov [rsi+000000A8],9999
+  mov [rsi+000000AC],9999
+  jmp return
+
+set_params_max:
+  jmp newmem
+  nop
+return:
+registersymbol(set_params_max)
+
+[DISABLE]
+
+set_params_max:
+  db 89 86 A0 00 00 00
+
+unregistersymbol(set_params_max)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: sora_1st.exe+DBB4F
+
+sora_1st.exe+DBB33: B8 0F 27 00 00     - mov eax,0000270F
+sora_1st.exe+DBB38: 41 03 CE           - add ecx,r14d
+sora_1st.exe+DBB3B: 41 B0 01           - mov r8b,01
+sora_1st.exe+DBB3E: 3B C8              - cmp ecx,eax
+sora_1st.exe+DBB40: 0F 4C C1           - cmovl eax,ecx
+sora_1st.exe+DBB43: 33 C9              - xor ecx,ecx
+sora_1st.exe+DBB45: 85 C0              - test eax,eax
+sora_1st.exe+DBB47: 0F 48 C1           - cmovs eax,ecx
+sora_1st.exe+DBB4A: 33 D2              - xor edx,edx
+sora_1st.exe+DBB4C: 48 8B CE           - mov rcx,rsi
+// ---------- INJECTING HERE ----------
+sora_1st.exe+DBB4F: 89 86 A0 00 00 00  - mov [rsi+000000A0],eax
+// ---------- DONE INJECTING  ----------
+sora_1st.exe+DBB55: 48 8B 74 24 38     - mov rsi,[rsp+38]
+sora_1st.exe+DBB5A: 48 83 C4 20        - add rsp,20
+sora_1st.exe+DBB5E: 41 5E              - pop r14
+sora_1st.exe+DBB60: E9 AB 1F 00 00     - jmp sora_1st.exe+DDB10
+sora_1st.exe+DBB65: 8B 8E A4 00 00 00  - mov ecx,[rsi+000000A4]
+sora_1st.exe+DBB6B: B8 0F 27 00 00     - mov eax,0000270F
+sora_1st.exe+DBB70: 41 03 CE           - add ecx,r14d
+sora_1st.exe+DBB73: 41 B0 01           - mov r8b,01
+sora_1st.exe+DBB76: 3B C8              - cmp ecx,eax
+sora_1st.exe+DBB78: 0F 4C C1           - cmovl eax,ecx
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

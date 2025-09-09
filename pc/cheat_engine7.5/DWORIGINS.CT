@@ -26,7 +26,7 @@ OpenProcess("DWORIGINS.exe")
       <CheatEntries>
         <CheatEntry>
           <ID>354</ID>
-          <Description>"Allies   [Endurance]   Expeditionary Forces"</Description>
+          <Description>"Combat   [Allies]   Expeditionary Forces   [Endurance/Spirit]"</Description>
           <Color>808040</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
@@ -68,9 +68,52 @@ _allies_y+01:
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
+          <ID>1337196843</ID>
+          <Description>"Combat   [Allies]   Expeditionary Forces   [Energy/Substitution]"</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_substitution,$process,8B 47 38 89 47 3C)
+alloc(newmem,$1111,_substitution)
+label(return)
+registersymbol(_substitution)
+newmem:
+  mov [rdi+38],(float)999999
+  mov eax,[rdi+38]
+  mov [rdi+3C],eax
+  jmp return
+_substitution:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_substitution)
+_substitution:
+  db 8B 47 38 89 47 3C
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196842</ID>
+          <Description>"Combat   [Auto Parry]"</Description>
+          <Color>7070B8</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_combat_parry,$process,74 10 4C 8B C6 48 8B)
+registersymbol(_combat_parry)
+_combat_parry:
+  db 90 90
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_combat_parry)
+_combat_parry:
+  db 74 10 4C 8B C6
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
           <ID>85</ID>
           <Description>"Combat   [Damage]   One Hit Kill"</Description>
-          <Color>404080</Color>
+          <Color>7070B8</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 aobscanmodule(_damage,$process,F3 0F 10 40 38 C3 0F)
@@ -607,23 +650,23 @@ _inventory:
           <Color>008080</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-aobscanmodule(_portable_items,$process,28 AA FF 0F B7 97 98 09 00 00)
+aobscanmodule(_portable_buns,$process,28 AA FF 0F B7 97 98 09 00 00)
 alloc(_buns,8)
-alloc(newmem,$1111,_portable_items)
+alloc(newmem,$1111,_portable_buns)
 label(return)
-registersymbol(_portable_items _buns)
+registersymbol(_portable_buns _buns)
 newmem:
   mov [_buns],rdi
   movzx edx,word ptr [rdi+998]
   jmp return
-_portable_items+03:
+_portable_buns+03:
   jmp newmem
   nop 2
 return:
 [DISABLE]
 dealloc(*)
 unregistersymbol(*)
-_portable_items+03:
+_portable_buns+03:
   db 0F B7 97 98 09 00 00
 </AssemblerScript>
           <CheatEntries>
@@ -643,7 +686,7 @@ _portable_items+03:
         <CheatEntry>
           <ID>1337196792</ID>
           <Description>"Multiplier   [Battle]   Base/Morale   [Team Blue]"</Description>
-          <Color>808040</Color>
+          <Color>FF0984</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
@@ -673,7 +716,7 @@ _multiplier_base:
         <CheatEntry>
           <ID>1337196785</ID>
           <Description>"Multiplier   [Battle]   Base/Morale   [Team Red]"</Description>
-          <Color>808040</Color>
+          <Color>FF0984</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
@@ -703,7 +746,7 @@ _multiplier_base:
         <CheatEntry>
           <ID>1337196774</ID>
           <Description>"Multiplier   [Battle]   K.O."</Description>
-          <Color>808040</Color>
+          <Color>FF0984</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 aobscanmodule(_multiplier_ko,$process,8B F9 42 8D 04 39)
@@ -712,7 +755,7 @@ label(code)
 label(return)
 registersymbol(_multiplier_ko)
 newmem:
-  add rcx,(int)100
+  add rcx,(int)25
 code:
   mov edi,ecx
   lea eax,[rcx+r15]
@@ -729,9 +772,35 @@ _multiplier_ko:
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
+          <ID>1337196841</ID>
+          <Description>"Objectives   [Finished]   Mastery"</Description>
+          <Color>808040</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_mastery,$process,0F B7 C0 89 82 00 0A 00 00)
+alloc(newmem,$1111,_mastery)
+label(return)
+newmem:
+  mov [eax],(int)9999
+  movzx eax,ax
+  mov [rdx+A00],eax
+  jmp return
+_mastery:
+  jmp newmem
+  nop 4
+return:
+registersymbol(_mastery)
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(_mastery)
+_mastery:
+  db 0F B7 C0 89 82 00 0A 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
           <ID>339</ID>
-          <Description>"Objectives   [Training]   Finished"</Description>
-          <Color>800080</Color>
+          <Description>"Objectives   [Finished]   Training"</Description>
+          <Color>808040</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 aobscanmodule(_training,$process,45 03 4C 88 7C)
@@ -750,6 +819,147 @@ unregistersymbol(_training)
 _training:
   db 45 03 4C 88 7C
 </AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337196820</ID>
+          <Description>"Peace   [Level]   Province"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_peace,$process,0F B7 8C 42 76 09 00 00)
+alloc(_level,8)
+alloc(newmem,$1111,_peace)
+label(return)
+registersymbol(_peace _level)
+newmem:
+  mov [_level],rdx
+  jne short @f
+  @@:
+  movzx ecx,word ptr [rdx+rax*2+976]
+  jmp return
+_peace:
+  jmp newmem
+  nop 3
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+_peace:
+  db 0F B7 8C 42 76 09 00 00
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337196839</ID>
+              <Description>"Province   [Ji]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>97A</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196835</ID>
+              <Description>"Province   [Jing]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>982</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196832</ID>
+              <Description>"Province   [Liang]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>988</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196837</ID>
+              <Description>"Province   [Qing]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>980</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196831</ID>
+              <Description>"Province   [Sili]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>976</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196836</ID>
+              <Description>"Province   [Xu]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>97e</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196840</ID>
+              <Description>"Province   [Yu]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>978</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196838</ID>
+              <Description>"Province   [Yan]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>97c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196834</ID>
+              <Description>"Province   [Yang]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>984</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337196833</ID>
+              <Description>"Province   [You]"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C58AFF</Color>
+              <VariableType>2 Bytes</VariableType>
+              <Address>_level</Address>
+              <Offsets>
+                <Offset>98c</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
         <CheatEntry>
           <ID>330</ID>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"infinte items"</Description>
+      <Color>FF8000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : ed9.exe
+  Version: 
+  Date   : 2025-01-26
+  Author : chuyuan
+
+  This script does no item will be decreased
+}
+
+define(_fn_inifinte_item,"ed9.exe"+50E1EE)
+define(bytes,2B C6 48 8B 74 24 48)
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+ 
+ 
+assert(_fn_inifinte_item,bytes)
+alloc(newmem,$1000,_fn_inifinte_item)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  sub eax,0
+  mov rsi,[rsp+48]
+  jmp return
+
+_fn_inifinte_item:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+_fn_inifinte_item:
+  db bytes
+  // sub eax,esi
+  // mov rsi,[rsp+48]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 7FF6DA0BE1EE
+
+7FF6DA0BE1C6: B0 01                 - mov al,01
+7FF6DA0BE1C8: 89 97 94 79 29 00     - mov [rdi+00297994],edx
+7FF6DA0BE1CE: 48 8B 5C 24 40        - mov rbx,[rsp+40]
+7FF6DA0BE1D3: 48 8B 74 24 48        - mov rsi,[rsp+48]
+7FF6DA0BE1D8: 48 83 C4 30           - add rsp,30
+7FF6DA0BE1DC: 5F                    - pop rdi
+7FF6DA0BE1DD: C3                    - ret 
+7FF6DA0BE1DE: 48 8D 0C 9F           - lea rcx,[rdi+rbx*4]
+7FF6DA0BE1E2: 48 8B 5C 24 40        - mov rbx,[rsp+40]
+7FF6DA0BE1E7: 0F B7 81 C0 B4 1B 00  - movzx eax,word ptr [rcx+001BB4C0]
+// ---------- INJECTING HERE ----------
+7FF6DA0BE1EE: 2B C6                 - sub eax,esi
+// ---------- DONE INJECTING  ----------
+7FF6DA0BE1F0: 48 8B 74 24 48        - mov rsi,[rsp+48]
+7FF6DA0BE1F5: 85 C0                 - test eax,eax
+7FF6DA0BE1F7: 66 0F 4F D0           - cmovg dx,ax
+7FF6DA0BE1FB: B0 01                 - mov al,01
+7FF6DA0BE1FD: 66 89 91 C0 B4 1B 00  - mov [rcx+001BB4C0],dx
+7FF6DA0BE204: 48 83 C4 30           - add rsp,30
+7FF6DA0BE208: 5F                    - pop rdi
+7FF6DA0BE209: C3                    - ret 
+7FF6DA0BE20A: CC                    - int 3 
+7FF6DA0BE20B: CC                    - int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"characters parameters"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : ed9.exe
+  Version: 
+  Date   : 2025-01-26
+  Author : chuyuan
+
+  This script is find the parameter of Van
+}
+
+define(_fn_van_param,"ed9.exe"+E174E)
+define(_fn_van_param_ori_bytes,41 89 82 A0 00 00 00)
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+ 
+ 
+assert(_fn_van_param,_fn_van_param_ori_bytes)
+alloc(_van_param_base, 8)
+alloc(newmem,$1000,_fn_van_param)
+
+label(code)
+label(return)
+registersymbol(_van_param_base)
+
+newmem:
+
+code:
+  mov [_van_param_base], r10
+  mov [r10+000000A0],0098967F
+  mov [r10+000000A4],0001869F
+  mov [r10+000000A8],0001869F
+  mov [r10+000000AC],0001869F
+  mov [r10+000000B0],0001869F
+  jmp return
+
+_fn_van_param:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+_fn_van_param:
+  db _fn_van_param_ori_bytes
+  // mov [r10+000000A0],eax
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 7FF6D9C9174E
+
+7FF6D9C9172C: 41 8B 8A A0 00 00 00  - mov ecx,[r10+000000A0]
+7FF6D9C91733: B8 7F 96 98 00        - mov eax,0098967F
+7FF6D9C91738: 41 03 CB              - add ecx,r11d
+7FF6D9C9173B: 3B C8                 - cmp ecx,eax
+7FF6D9C9173D: 0F 4C C1              - cmovl eax,ecx
+7FF6D9C91740: 45 33 C9              - xor r9d,r9d
+7FF6D9C91743: 85 C0                 - test eax,eax
+7FF6D9C91745: 49 8B CA              - mov rcx,r10
+7FF6D9C91748: 41 0F 48 C1           - cmovs eax,r9d
+7FF6D9C9174C: 33 D2                 - xor edx,edx
+// ---------- INJECTING HERE ----------
+7FF6D9C9174E: 41 89 82 A0 00 00 00  - mov [r10+000000A0],eax
+// ---------- DONE INJECTING  ----------
+7FF6D9C91755: E9 D6 1E 00 00        - jmp 7FF6D9C93630
+7FF6D9C9175A: 41 8B 8A A4 00 00 00  - mov ecx,[r10+000000A4]
+7FF6D9C91761: B8 9F 86 01 00        - mov eax,0001869F
+7FF6D9C91766: 41 03 CB              - add ecx,r11d
+7FF6D9C91769: 3B C8                 - cmp ecx,eax
+7FF6D9C9176B: 0F 4C C1              - cmovl eax,ecx
+7FF6D9C9176E: 45 33 C9              - xor r9d,r9d
+7FF6D9C91771: 85 C0                 - test eax,eax
+7FF6D9C91773: 49 8B CA              - mov rcx,r10
+7FF6D9C91776: 41 0F 48 C1           - cmovs eax,r9d
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"infinite G-token"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : ed9.exe
+  Version: 
+  Date   : 2025-01-26
+  Author : chuyuan
+
+  This script let G-tokne infinite
+}
+
+define(_fn_infinite_gtoken,"ed9.exe"+50E1BF)
+define(_fn_infinite_gtoken_ori_bytes,2B C6 85 C0 0F 4F D0)
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+ 
+ 
+assert(_fn_infinite_gtoken,_fn_infinite_gtoken_ori_bytes)
+alloc(newmem,$1000,_fn_infinite_gtoken)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  sub eax,0
+  test eax,eax
+  cmovg edx,eax
+  jmp return
+
+_fn_infinite_gtoken:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+_fn_infinite_gtoken:
+  db _fn_infinite_gtoken_ori_bytes
+  // sub eax,esi
+  // test eax,eax
+  // cmovg edx,eax
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 7FF6DA0BE1BF
+
+7FF6DA0BE199: B0 01              - mov al,01
+7FF6DA0BE19B: 89 97 8C 79 29 00  - mov [rdi+0029798C],edx
+7FF6DA0BE1A1: 48 8B 5C 24 40     - mov rbx,[rsp+40]
+7FF6DA0BE1A6: 48 8B 74 24 48     - mov rsi,[rsp+48]
+7FF6DA0BE1AB: 48 83 C4 30        - add rsp,30
+7FF6DA0BE1AF: 5F                 - pop rdi
+7FF6DA0BE1B0: C3                 - ret 
+7FF6DA0BE1B1: 81 FB 3F 01 00 00  - cmp ebx,0000013F
+7FF6DA0BE1B7: 75 25              - jne 7FF6DA0BE1DE
+7FF6DA0BE1B9: 8B 87 94 79 29 00  - mov eax,[rdi+00297994]
+// ---------- INJECTING HERE ----------
+7FF6DA0BE1BF: 2B C6              - sub eax,esi
+// ---------- DONE INJECTING  ----------
+7FF6DA0BE1C1: 85 C0              - test eax,eax
+7FF6DA0BE1C3: 0F 4F D0           - cmovg edx,eax
+7FF6DA0BE1C6: B0 01              - mov al,01
+7FF6DA0BE1C8: 89 97 94 79 29 00  - mov [rdi+00297994],edx
+7FF6DA0BE1CE: 48 8B 5C 24 40     - mov rbx,[rsp+40]
+7FF6DA0BE1D3: 48 8B 74 24 48     - mov rsi,[rsp+48]
+7FF6DA0BE1D8: 48 83 C4 30        - add rsp,30
+7FF6DA0BE1DC: 5F                 - pop rdi
+7FF6DA0BE1DD: C3                 - ret 
+7FF6DA0BE1DE: 48 8D 0C 9F        - lea rcx,[rdi+rbx*4]
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
