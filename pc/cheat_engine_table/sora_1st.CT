@@ -253,7 +253,7 @@ sora_1st.exe+1AEF5F: 0F 85 BE 00 00 00     - jne sora_1st.exe+1AF023
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
-      <ID>11</ID>
+      <ID>18</ID>
       <Description>"set_all_params_max"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{ Game   : sora_1st.exe
@@ -322,6 +322,152 @@ sora_1st.exe+DBB70: 41 03 CE           - add ecx,r14d
 sora_1st.exe+DBB73: 41 B0 01           - mov r8b,01
 sora_1st.exe+DBB76: 3B C8              - cmp ecx,eax
 sora_1st.exe+DBB78: 0F 4C C1           - cmovl eax,ecx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"100times_support_exp"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : sora_1st.exe
+  Version: 
+  Date   : 2025-09-20
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(SupportExp,sora_1st.exe,89 BE 8C 02 00 00 44) // should be unique
+alloc(newmem,$1000,SupportExp)
+
+label(code)
+label(return)
+
+newmem:
+  mov eax,edi
+  mov ecx,100
+  mul ecx
+  mov edi,eax
+code:
+  mov [rsi+0000028C],edi
+  jmp return
+
+SupportExp:
+  jmp newmem
+  nop
+return:
+registersymbol(SupportExp)
+
+[DISABLE]
+
+SupportExp:
+  db 89 BE 8C 02 00 00
+
+unregistersymbol(SupportExp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: sora_1st.exe+D6886
+
+sora_1st.exe+D6862: 0F 4C F0                 - cmovl esi,eax
+sora_1st.exe+D6865: 48 8B 44 24 70           - mov rax,[rsp+70]
+sora_1st.exe+D686A: 8B 90 8C 02 00 00        - mov edx,[rax+0000028C]
+sora_1st.exe+D6870: 03 D6                    - add edx,esi
+sora_1st.exe+D6872: 3B D7                    - cmp edx,edi
+sora_1st.exe+D6874: 0F 4C FA                 - cmovl edi,edx
+sora_1st.exe+D6877: 85 FF                    - test edi,edi
+sora_1st.exe+D6879: B8 00 00 00 00           - mov eax,00000000
+sora_1st.exe+D687E: 0F 48 F8                 - cmovs edi,eax
+sora_1st.exe+D6881: 48 8B 74 24 70           - mov rsi,[rsp+70]
+// ---------- INJECTING HERE ----------
+sora_1st.exe+D6886: 89 BE 8C 02 00 00        - mov [rsi+0000028C],edi
+// ---------- DONE INJECTING  ----------
+sora_1st.exe+D688C: 44 8B 06                 - mov r8d,[rsi]
+sora_1st.exe+D688F: BA 3A 00 00 00           - mov edx,0000003A
+sora_1st.exe+D6894: 48 8B 0D CD 4E 82 00     - mov rcx,[sora_1st.exe+8FB768]
+sora_1st.exe+D689B: E8 00 CE F4 FF           - call sora_1st.exe+236A0
+sora_1st.exe+D68A0: 8B 96 8C 02 00 00        - mov edx,[rsi+0000028C]
+sora_1st.exe+D68A6: 8B 0E                    - mov ecx,[rsi]
+sora_1st.exe+D68A8: E8 53 AF 00 00           - call sora_1st.exe+E1800
+sora_1st.exe+D68AD: 3B C3                    - cmp eax,ebx
+sora_1st.exe+D68AF: 76 39                    - jna sora_1st.exe+D68EA
+sora_1st.exe+D68B1: 41 83 8D 28 03 00 00 04  - or dword ptr [r13+00000328],04
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"no_cp_reduce"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : sora_1st.exe
+  Version: 
+  Date   : 2025-09-20
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+
+aobscanmodule(no_cp_reduce,sora_1st.exe,20 41 03 CE 3B CA) // should be unique
+alloc(newmem,$1000,no_cp_reduce)
+
+label(code)
+label(return)
+
+newmem:
+  cmp r14d,0
+  jl set_zero
+  jmp code
+set_zero:
+  mov r14d,0
+code:
+  add ecx,r14d
+  cmp ecx,edx
+  jmp return
+
+no_cp_reduce+01:
+  jmp newmem
+return:
+registersymbol(no_cp_reduce)
+
+[DISABLE]
+
+no_cp_reduce+01:
+  db 41 03 CE 3B CA
+
+unregistersymbol(no_cp_reduce)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: sora_1st.exe+DE0F9
+
+sora_1st.exe+DE0DD: 33 C9           - xor ecx,ecx
+sora_1st.exe+DE0DF: 85 C0           - test eax,eax
+sora_1st.exe+DE0E1: 0F 48 C1        - cmovs eax,ecx
+sora_1st.exe+DE0E4: 89 46 1C        - mov [rsi+1C],eax
+sora_1st.exe+DE0E7: 48 8B 74 24 38  - mov rsi,[rsp+38]
+sora_1st.exe+DE0EC: 48 83 C4 20     - add rsp,20
+sora_1st.exe+DE0F0: 41 5E           - pop r14
+sora_1st.exe+DE0F2: C3              - ret 
+sora_1st.exe+DE0F3: 8B 4E 1C        - mov ecx,[rsi+1C]
+sora_1st.exe+DE0F6: 8B 56 20        - mov edx,[rsi+20]
+// ---------- INJECTING HERE ----------
+sora_1st.exe+DE0F9: 41 03 CE        - add ecx,r14d
+// ---------- DONE INJECTING  ----------
+sora_1st.exe+DE0FC: 3B CA           - cmp ecx,edx
+sora_1st.exe+DE0FE: 0F 4C D1        - cmovl edx,ecx
+sora_1st.exe+DE101: 33 C9           - xor ecx,ecx
+sora_1st.exe+DE103: 85 D2           - test edx,edx
+sora_1st.exe+DE105: 0F 48 D1        - cmovs edx,ecx
+sora_1st.exe+DE108: 89 56 1C        - mov [rsi+1C],edx
+sora_1st.exe+DE10B: 48 8B 74 24 38  - mov rsi,[rsp+38]
+sora_1st.exe+DE110: 48 83 C4 20     - add rsp,20
+sora_1st.exe+DE114: 41 5E           - pop r14
+sora_1st.exe+DE116: C3              - ret 
 }
 </AssemblerScript>
     </CheatEntry>
