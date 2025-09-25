@@ -471,6 +471,83 @@ sora_1st.exe+DE116: C3              - ret
 }
 </AssemblerScript>
     </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"10x_items_incoming"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : sora_1st.exe
+  Version: 
+  Date   : 2025-09-25
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(10x_item_incoming,sora_1st.exe,41 03 CE C7 44 24 78 00 00 00 00) // should be unique
+alloc(newmem,$1000,10x_item_incoming)
+
+label(code)
+label(return)
+
+newmem:
+  push eax
+  push ecx
+  mov eax,r14d
+  mov ecx,10
+  mul cx
+  mov r14d,eax
+  pop ecx
+  pop eax
+code:
+  add ecx,r14d
+  mov [rsp+78],00000000
+  jmp return
+
+10x_item_incoming:
+  jmp newmem
+  nop 6
+return:
+registersymbol(10x_item_incoming)
+
+[DISABLE]
+
+10x_item_incoming:
+  db 41 03 CE C7 44 24 78 00 00 00 00
+
+unregistersymbol(10x_item_incoming)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: sora_1st.exe+35BCEC
+
+sora_1st.exe+35BCB7: 89 87 F8 38 1F 00        - mov [rdi+001F38F8],eax
+sora_1st.exe+35BCBD: 8B 8F FC 38 1F 00        - mov ecx,[rdi+001F38FC]
+sora_1st.exe+35BCC3: 41 03 CE                 - add ecx,r14d
+sora_1st.exe+35BCC6: 41 3B C8                 - cmp ecx,r8d
+sora_1st.exe+35BCC9: 44 0F 4C C1              - cmovl r8d,ecx
+sora_1st.exe+35BCCD: 44 89 87 FC 38 1F 00     - mov [rdi+001F38FC],r8d
+sora_1st.exe+35BCD4: E9 17 01 00 00           - jmp sora_1st.exe+35BDF0
+sora_1st.exe+35BCD9: 8B 86 B8 00 00 00        - mov eax,[rsi+000000B8]
+sora_1st.exe+35BCDF: 4C 8D 4C 24 78           - lea r9,[rsp+78]
+sora_1st.exe+35BCE4: 0F B7 8C 9F 24 67 11 00  - movzx ecx,word ptr [rdi+rbx*4+00116724]
+// ---------- INJECTING HERE ----------
+sora_1st.exe+35BCEC: 41 03 CE                 - add ecx,r14d
+// ---------- DONE INJECTING  ----------
+sora_1st.exe+35BCEF: C7 44 24 78 00 00 00 00  - mov [rsp+78],00000000
+sora_1st.exe+35BCF7: 3B C8                    - cmp ecx,eax
+sora_1st.exe+35BCF9: C7 44 24 20 FF FF 00 00  - mov [rsp+20],0000FFFF
+sora_1st.exe+35BD01: 4C 8D 35 18 FF 49 00     - lea r14,[sora_1st.exe+7FBC20]
+sora_1st.exe+35BD08: 66 0F 4C C1              - cmovl ax,cx
+sora_1st.exe+35BD0C: 49 8B D6                 - mov rdx,r14
+sora_1st.exe+35BD0F: 48 8B 0D 32 50 5A 00     - mov rcx,[sora_1st.exe+900D48]
+sora_1st.exe+35BD16: 45 33 C0                 - xor r8d,r8d
+sora_1st.exe+35BD19: 80 8C 9F 26 67 11 00 01  - or byte ptr [rdi+rbx*4+00116726],01
+sora_1st.exe+35BD21: 66 89 84 9F 24 67 11 00  - mov [rdi+rbx*4+00116724],ax
+}
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
