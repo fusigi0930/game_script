@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"item_no_reduce"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Ys X: Proud Nordics - Ver.1.03
+  Version: 
+  Date   : 2025-10-24
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(item_no_reduce,ysx.exe,8B D8 3B C8 48 8D 54 24 28) // should be unique
+alloc(newmem,$1000,item_no_reduce)
+
+label(code)
+label(return)
+
+newmem:
+  cmp rcx,r15
+  jnb code
+  mov rcx,r15
+code:
+  mov ebx,eax
+  cmp ecx,eax
+  lea rdx,[rsp+28]
+  jmp return
+
+item_no_reduce:
+  jmp newmem
+  nop 4
+return:
+registersymbol(item_no_reduce)
+
+[DISABLE]
+
+item_no_reduce:
+  db 8B D8 3B C8 48 8D 54 24 28
+
+unregistersymbol(item_no_reduce)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: ysx.exe+220AB8A
+
+ysx.exe+220AB63: 49 3B C8              - cmp rcx,r8
+ysx.exe+220AB66: 74 14                 - je ysx.exe+220AB7C
+ysx.exe+220AB68: 48 8D 54 24 28        - lea rdx,[rsp+28]
+ysx.exe+220AB6D: 49 8B CE              - mov rcx,r14
+ysx.exe+220AB70: E8 1B 0D 00 00        - call ysx.exe+220B890
+ysx.exe+220AB75: 8B 54 24 28           - mov edx,[rsp+28]
+ysx.exe+220AB79: 44 8B 38              - mov r15d,[rax]
+ysx.exe+220AB7C: 48 89 7C 24 50        - mov [rsp+50],rdi
+ysx.exe+220AB81: E8 6A 02 00 00        - call ysx.exe+220ADF0
+ysx.exe+220AB86: 41 8D 0C 2F           - lea ecx,[r15+rbp]
+// ---------- INJECTING HERE ----------
+ysx.exe+220AB8A: 8B D8                 - mov ebx,eax
+// ---------- DONE INJECTING  ----------
+ysx.exe+220AB8C: 3B C8                 - cmp ecx,eax
+ysx.exe+220AB8E: 48 8D 54 24 28        - lea rdx,[rsp+28]
+ysx.exe+220AB93: 0F 4C D9              - cmovl ebx,ecx
+ysx.exe+220AB96: 49 8B CE              - mov rcx,r14
+ysx.exe+220AB99: E8 F2 0C 00 00        - call ysx.exe+220B890
+ysx.exe+220AB9E: 85 DB                 - test ebx,ebx
+ysx.exe+220ABA0: 41 0F 48 DC           - cmovs ebx,r12d
+ysx.exe+220ABA4: 89 18                 - mov [rax],ebx
+ysx.exe+220ABA6: 44 8B 44 24 28        - mov r8d,[rsp+28]
+ysx.exe+220ABAB: 41 81 F8 03 08 00 00  - cmp r8d,00000803
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"max_params"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Ys X: Proud Nordics - Ver.1.03
+  Version: 
+  Date   : 2025-10-24
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(max_params,ysx.exe,F3 0F 58 B4 07 B8 61 02 00) // should be unique
+alloc(newmem,$1000,max_params)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rdi+rax+000261BC],453B8000
+  mov [rdi+rax+000261B8],453B8000
+  mov [rdi+rax+000261C0],453B8000
+  mov [rdi+rax+000261C4],453B8000
+  mov [rdi+rax+000261C8],453B8000
+code:
+  addss xmm6,[rdi+rax+000261B8]
+  jmp return
+
+max_params:
+  jmp newmem
+  nop 4
+return:
+registersymbol(max_params)
+
+[DISABLE]
+
+max_params:
+  db F3 0F 58 B4 07 B8 61 02 00
+
+unregistersymbol(max_params)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: ysx.exe+235B6B5
+
+ysx.exe+235B675: F3 0F 11 B4 07 C0 61 02 00        - movss [rdi+rax+000261C0],xmm6
+ysx.exe+235B67E: 76 5B                             - jna ysx.exe+235B6DB
+ysx.exe+235B680: C7 84 07 C0 61 02 00 00 80 3B 45  - mov [rdi+rax+000261C0],453B8000
+ysx.exe+235B68B: EB 4E                             - jmp ysx.exe+235B6DB
+ysx.exe+235B68D: F3 0F 58 B4 07 BC 61 02 00        - addss xmm6,[rdi+rax+000261BC]
+ysx.exe+235B696: 0F 2F 35 1F 72 AD 00              - comiss xmm6,[ysx.exe+2E328BC]
+ysx.exe+235B69D: F3 0F 11 B4 07 BC 61 02 00        - movss [rdi+rax+000261BC],xmm6
+ysx.exe+235B6A6: 76 33                             - jna ysx.exe+235B6DB
+ysx.exe+235B6A8: C7 84 07 BC 61 02 00 00 80 3B 45  - mov [rdi+rax+000261BC],453B8000
+ysx.exe+235B6B3: EB 26                             - jmp ysx.exe+235B6DB
+// ---------- INJECTING HERE ----------
+ysx.exe+235B6B5: F3 0F 58 B4 07 B8 61 02 00        - addss xmm6,[rdi+rax+000261B8]
+// ---------- DONE INJECTING  ----------
+ysx.exe+235B6BE: 0F 2F 35 F7 71 AD 00              - comiss xmm6,[ysx.exe+2E328BC]
+ysx.exe+235B6C5: F3 0F 11 B4 07 B8 61 02 00        - movss [rdi+rax+000261B8],xmm6
+ysx.exe+235B6CE: 76 0B                             - jna ysx.exe+235B6DB
+ysx.exe+235B6D0: C7 84 07 B8 61 02 00 00 80 3B 45  - mov [rdi+rax+000261B8],453B8000
+ysx.exe+235B6DB: 0F 28 74 24 20                    - movaps xmm6,[rsp+20]
+ysx.exe+235B6E0: 48 8B 74 24 68                    - mov rsi,[rsp+68]
+ysx.exe+235B6E5: 48 83 C4 40                       - add rsp,40
+ysx.exe+235B6E9: 5F                                - pop rdi
+ysx.exe+235B6EA: 5D                                - pop rbp
+ysx.exe+235B6EB: 5B                                - pop rbx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"sp_infinite"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Ys X: Proud Nordics - Ver.1.03
+  Version: 
+  Date   : 2025-10-25
+  Author : chuyuan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(sp_infinite,ysx.exe,F3 42 0F 11 54 11 04) // should be unique
+alloc(newmem,$1000,sp_infinite)
+
+label(code)
+label(return)
+label(float_100)
+
+newmem:
+  movss xmm2,[float_100]
+code:
+  movss [rcx+r10+04],xmm2
+  jmp return
+
+float_100:
+  dd (float)100.0
+
+sp_infinite:
+  jmp newmem
+  nop 2
+return:
+registersymbol(sp_infinite)
+
+[DISABLE]
+
+sp_infinite:
+  db F3 42 0F 11 54 11 04
+
+unregistersymbol(sp_infinite)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: ysx.exe+2252BAD
+
+ysx.exe+2252B82: 0F 54 0D 37 6B BE 00        - andps xmm1,[ysx.exe+2E396C0]
+ysx.exe+2252B89: 0F 2F C1                    - comiss xmm0,xmm1
+ysx.exe+2252B8C: 77 0F                       - ja ysx.exe+2252B9D
+ysx.exe+2252B8E: 45 84 C9                    - test r9b,r9b
+ysx.exe+2252B91: 74 0A                       - je ysx.exe+2252B9D
+ysx.exe+2252B93: F3 0F 10 1D 15 F2 BD 00     - movss xmm3,[ysx.exe+2E31DB0]
+ysx.exe+2252B9B: EB 07                       - jmp ysx.exe+2252BA4
+ysx.exe+2252B9D: F3 42 0F 11 54 11 08        - movss [rcx+r10+08],xmm2
+ysx.exe+2252BA4: 42 8B 44 11 08              - mov eax,[rcx+r10+08]
+ysx.exe+2252BA9: 42 89 04 11                 - mov [rcx+r10],eax
+// ---------- INJECTING HERE ----------
+ysx.exe+2252BAD: F3 42 0F 11 54 11 04        - movss [rcx+r10+04],xmm2
+// ---------- DONE INJECTING  ----------
+ysx.exe+2252BB4: F3 42 0F 11 5C 11 0C        - movss [rcx+r10+0C],xmm3
+ysx.exe+2252BBB: 42 C7 44 11 10 00 00 00 00  - mov [rcx+r10+10],00000000
+ysx.exe+2252BC4: 42 C7 44 11 14 02 00 00 00  - mov [rcx+r10+14],00000002
+ysx.exe+2252BCD: C3                          - ret 
+ysx.exe+2252BCE: CC                          - int 3 
+ysx.exe+2252BCF: CC                          - int 3 
+ysx.exe+2252BD0: 40 53                       - push rbx
+ysx.exe+2252BD2: 48 83 EC 30                 - sub rsp,30
+ysx.exe+2252BD6: 0F 29 74 24 20              - movaps [rsp+20],xmm6
+ysx.exe+2252BDB: 0F 28 F2                    - movaps xmm6,xmm2
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
